@@ -1,7 +1,7 @@
 # Petits jeux python
 
 L'idée est de développer quelques petits jeux simples en Python, bien sur pour jouer mais surtout pour apprendre à programmer.
-Vous pourrez en apprendre plus en vous référant à la page FaceBook des petits jeux Python  :https://www.facebook.com/petitsjeuxPython/ 
+Vous pourrez en apprendre plus en vous référant à la page FaceBook des petits jeux Python : https://www.facebook.com/petitsjeuxPython/ 
 
 ##Quelques idées
 
