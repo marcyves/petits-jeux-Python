@@ -14,12 +14,32 @@ prises par le précédent.
 
 """
 
-allumettes = 30
+def jeuOrdi(n,m):
+    """
+    Ajouter ici l'IA du jeu...
+    """
+    nb = min(n,m)
+    return nb
 
+allumettes = 30
+limit = 1
 
 while (allumettes > 1):
     print("Il y a %i allumettes"% allumettes)
-    retire = eval(input("Combien d'allumettes vous voulez retirer ?"))
+    retire = 0
+    while (retire < 1 or retire > min(limit,allumettes)):
+        print ("Il y a %i allumettes et vous pouvez en retirer de 1 à %i" % (allumettes, min(limit,allumettes)))
+        retire = eval(input("Combien d'allumettes vous voulez retirer ? ==> "))
     allumettes -= retire
+    if (allumettes > 0):
+        limit = retire*2
+        retire = jeuOrdi(limit, allumettes)
+        print("A mon tour, je retire %i " % retire)
+        allumettes -= retire
+        limit = retire*2
+        if (allumettes <= 0):
+            print("Vous avez gagné !")
+    else:
+        print("J'ai gagné !")
 
 print("C'est terminé")
