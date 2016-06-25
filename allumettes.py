@@ -16,9 +16,16 @@ prises par le précédent.
 
 def jeuOrdi(n,m):
     """
+    Variables en entrée:
+    n est la limite imposée par le tour précédent
+    m le nombre d'allumettes restantes
+
     Ajouter ici l'IA du jeu...
     """
-    nb = min(n,m)
+    if n >= (m-1):
+        nb = m-1
+    else :
+        nb = min(n,m)
     return nb
 
 allumettes = 30
