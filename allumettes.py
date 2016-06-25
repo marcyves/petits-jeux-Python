@@ -22,17 +22,20 @@ def jeuOrdi(n,m):
 
     Ajouter ici l'IA du jeu...
     """
-    if n >= (m-1):
+    if m == 1 :
+        nb = 1
+        print("Bien joué")
+    elif n >= (m-1):
         nb = m-1
+        print("Je crois que vous êtes mal parti...")
     else :
         nb = min(n,m)
     return nb
 
 allumettes = 30
-limit = 1
+limit = 2
 
-while (allumettes > 1):
-    print("Il y a %i allumettes"% allumettes)
+while (allumettes >= 1):
     retire = 0
     while (retire < 1 or retire > min(limit,allumettes)):
         print ("Il y a %i allumettes et vous pouvez en retirer de 1 à %i" % (allumettes, min(limit,allumettes)))
