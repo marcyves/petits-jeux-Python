@@ -20,7 +20,7 @@ def jeuOrdi(n,m):
     n est la limite imposée par le tour précédent
     m le nombre d'allumettes restantes
 
-    Ajouter ici l'IA du jeu...
+    L'IA du jeu (^_^);
     """
     if m == 1 :
         nb = 1
@@ -29,7 +29,8 @@ def jeuOrdi(n,m):
         nb = m-1
         print("Je crois que vous êtes mal parti...")
     else :
-        nb = min(n,m)
+        laisse = 2 * (n+1)
+        nb = max(1,min(n,m - laisse))
     return nb
 
 allumettes = 30
