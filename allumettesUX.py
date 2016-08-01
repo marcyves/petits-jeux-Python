@@ -222,7 +222,7 @@ pygame.init()
 surfaceW = 800
 surfaceH = 600
 white = (255,255,255)
-couleur_tapis = (99,255,127)
+couleur_tapis = (0,128,0)
 
 img = pygame.image.load('allumette.png')
 
