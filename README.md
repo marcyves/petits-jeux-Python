@@ -18,11 +18,19 @@ Une grille 3x3 et chaque joueur à tour de rôle va pose un pion,
 représenté par un O ou un X.
 Le premier qui aligne 3 pions a gagné !
 
-## Quelques idées pour plus tard
+# Quelques idées pour plus tard
+
+## Alunissage
 
 ## Labyrinthe 2D
 
 ## Labyrinthe 3D
 
 ## Tetris
+Vous êtes dans une fusée au dessus de la lune.
+Vous ralentissez votre chute en brulant du carburant dans les rétro-fusées.
 
+	Trop fort : vous redécollez
+	Trop faible : vous vous écrasez
+
+Attention: votre réserve de carburant est limitée !
