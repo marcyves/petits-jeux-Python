@@ -24,7 +24,10 @@ def jeu_joueur():
     """
     gestion du coup du joueur, question et vérifications
     """
-    coup_joueur = raw_input("Où est-ce que vous placez votre pion ?  ")
+    coup_joueur = 0
+    while (coup_joueur <= 0 or coup_joueur >9):
+        coup_joueur = input("Où est-ce que vous placez votre pion ?  ")
+    table_jeu[coup_joueur] = pion_joueur
     return
 
 def jeu_ordi():
@@ -32,11 +35,29 @@ def jeu_ordi():
     Ici l'IA du jeu ordinateur
     """
     print("À moi de jouer")
-    
+    for i in range(10):
+        if (table_jeu[i]== str(i)):
+            table_jeu[i] = pion_ordi
+            print("Je pose mon pion en " + str(i))
+            break
     return
 
-def jeu_termine():
-    return True
+def jeu_termine(pion):
+    """
+    On teste si position gagnante
+    """
+
+    if ((table_jeu[1] == pion and table_jeu[2] == pion and table_jeu[3] == pion )
+    or (table_jeu[4] == pion and table_jeu[5] == pion and table_jeu[6] == pion )
+    or (table_jeu[7] == pion and table_jeu[8] == pion and table_jeu[9] == pion )
+    or (table_jeu[1] == pion and table_jeu[4] == pion and table_jeu[7] == pion )
+    or (table_jeu[2] == pion and table_jeu[5] == pion and table_jeu[8] == pion )
+    or (table_jeu[3] == pion and table_jeu[6] == pion and table_jeu[9] == pion )
+    or (table_jeu[1] == pion and table_jeu[5] == pion and table_jeu[9] == pion )
+    or (table_jeu[7] == pion and table_jeu[5] == pion and table_jeu[3] == pion )):
+        return True
+    else:
+        return False
 
 print("Petit jeu de morpion")
 print("--------------------")
@@ -63,12 +84,15 @@ if pion_ordi == "O":
 while(jeu_en_cours):
     affiche_jeu(table_jeu)
     jeu_joueur()
-    if jeu_termine():
+    if jeu_termine(pion_joueur):
+        print("Bravo, vous avez gagné !")
         jeu_en_cours = False
+    else:
+        affiche_jeu(table_jeu)
+        jeu_ordi()
+        if jeu_termine(pion_ordi):
+            print("J'ai gagné ! Bienvenue dans la matrice...")
+            jeu_en_cours = False
 
-    affiche_jeu(table_jeu)
-    jeu_ordi()
-    if jeu_termine():
-        jeu_en_cours = False
-
-print("C'est terminé")
+print("\nC'est terminé\n")
+affiche_jeu(table_jeu)
