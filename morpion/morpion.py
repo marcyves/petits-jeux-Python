@@ -30,16 +30,79 @@ def jeu_joueur():
     table_jeu[coup_joueur] = pion_joueur
     return
 
+def cherche_position_gagnante(pion):
+    if (table_jeu[1] == pion and table_jeu[2] == pion and table_jeu[3] == "3" ):
+        return 3
+    if (table_jeu[1] == pion and table_jeu[2] == "2"  and table_jeu[3] == pion ):
+        return 2
+    if (table_jeu[1] == "1"  and table_jeu[2] == pion and table_jeu[3] == pion ):
+        return 1
+    if (table_jeu[4] == "4"  and table_jeu[5] == pion and table_jeu[6] == pion ):
+        return 4
+    if (table_jeu[4] == pion and table_jeu[5] == "5"  and table_jeu[6] == pion ):
+        return 5
+    if (table_jeu[4] == pion and table_jeu[5] == pion and table_jeu[6] == "6" ):
+        return 6
+    if (table_jeu[7] == "7" and table_jeu[8] == pion and table_jeu[9] == pion ):
+        return 7
+    if (table_jeu[7] == pion and table_jeu[8] == "8" and table_jeu[9] == pion ):
+        return 8
+    if (table_jeu[7] == pion and table_jeu[8] == pion and table_jeu[9] == "9" ):
+        return 9
+    if (table_jeu[1] == "1" and table_jeu[4] == pion and table_jeu[7] == pion ):
+        return 1
+    if (table_jeu[1] == pion and table_jeu[4] == "4" and table_jeu[7] == pion ):
+        return 4
+    if (table_jeu[1] == pion and table_jeu[4] == pion and table_jeu[7] == "7" ):
+        return 7
+    if (table_jeu[2] == "2" and table_jeu[5] == pion and table_jeu[8] == pion ):
+        return 2
+    if (table_jeu[2] == pion and table_jeu[5] == "5" and table_jeu[8] == pion ):
+        return 5
+    if (table_jeu[2] == pion and table_jeu[5] == pion and table_jeu[8] == "8" ):
+        return 8
+    if (table_jeu[3] == "3" and table_jeu[6] == pion and table_jeu[9] == pion ):
+        return 3
+    if (table_jeu[3] == pion and table_jeu[6] == "6" and table_jeu[9] == pion ):
+        return 6
+    if (table_jeu[3] == pion and table_jeu[6] == pion and table_jeu[9] == "9" ):
+        return 9
+    if (table_jeu[1] == "1" and table_jeu[5] == pion and table_jeu[9] == pion ):
+        return 1
+    if (table_jeu[1] == pion and table_jeu[5] == "5" and table_jeu[9] == pion ):
+        return 5
+    if (table_jeu[1] == pion and table_jeu[5] == pion and table_jeu[9] == "9" ):
+        return 9
+    if (table_jeu[7] == "7" and table_jeu[5] == pion and table_jeu[3] == pion ):
+        return 7
+    if (table_jeu[7] == pion and table_jeu[5] == "5" and table_jeu[3] == pion ):
+        return 5
+    if (table_jeu[7] == pion and table_jeu[5] == pion and table_jeu[3] == "3" ):
+        return 3
+    return 0
+
 def jeu_ordi():
     """
     Ici l'IA du jeu ordinateur
     """
     print("À moi de jouer")
-    for i in range(10):
-        if (table_jeu[i]== str(i)):
-            table_jeu[i] = pion_ordi
-            print("Je pose mon pion en " + str(i))
-            break
+    # L'ordi cherche d'abord une position gagnante pour lui
+    coup_ordi = cherche_position_gagnante(pion_ordi)
+    if coup_ordi == 0:
+        # ensuite il vérifie que le joueur n'est pas en position de gagner
+        coup_ordi = cherche_position_gagnante(pion_joueur)
+        if coup_ordi == 0:
+            # reste à voir si le centre est encore libre
+            if table_jeu[5] == "5":
+                coup_ordi = 5
+            else :
+                # Sinon cherche le premier endroit libre
+                for i in range(10):
+                    if (table_jeu[i]== str(i)):
+                        coup_ordi = i
+                        break
+    table_jeu[coup_ordi] = pion_ordi
+    print("Je pose mon pion en " + str(coup_ordi))
     return
 
 def jeu_termine(pion):
@@ -55,9 +118,17 @@ def jeu_termine(pion):
     or (table_jeu[3] == pion and table_jeu[6] == pion and table_jeu[9] == pion )
     or (table_jeu[1] == pion and table_jeu[5] == pion and table_jeu[9] == pion )
     or (table_jeu[7] == pion and table_jeu[5] == pion and table_jeu[3] == pion )):
+        if pion == pion_joueur:
+            print("\n\tBravo, vous avez gagné !")
+        else:
+            print("\n\tJ'ai gagné ! Bienvenue dans la matrice...")
         return True
     else:
-        return False
+        for i in range(10):
+            if table_jeu[i] == str(i):
+                return False
+        print("\n\tMatch nul...")
+        return True
 
 print("Petit jeu de morpion")
 print("--------------------")
@@ -85,13 +156,11 @@ while(jeu_en_cours):
     affiche_jeu(table_jeu)
     jeu_joueur()
     if jeu_termine(pion_joueur):
-        print("Bravo, vous avez gagné !")
         jeu_en_cours = False
     else:
         affiche_jeu(table_jeu)
         jeu_ordi()
         if jeu_termine(pion_ordi):
-            print("J'ai gagné ! Bienvenue dans la matrice...")
             jeu_en_cours = False
 
 print("\nC'est terminé\n")
