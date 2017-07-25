@@ -27,6 +27,9 @@ def jeu_joueur():
     coup_joueur = 0
     while (coup_joueur <= 0 or coup_joueur >9):
         coup_joueur = input("Où est-ce que vous placez votre pion ?  ")
+        if  table_jeu[coup_joueur] != str(coup_joueur):
+            print("Coup invalide, la case est prise")
+            coup_joueur = 0
     table_jeu[coup_joueur] = pion_joueur
     return
 
@@ -85,7 +88,7 @@ def jeu_ordi():
     """
     Ici l'IA du jeu ordinateur
     """
-    print("À moi de jouer")
+    print("\nÀ moi de jouer")
     # L'ordi cherche d'abord une position gagnante pour lui
     coup_ordi = cherche_position_gagnante(pion_ordi)
     if coup_ordi == 0:
