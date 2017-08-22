@@ -133,6 +133,10 @@ def jeu_termine(pion):
         print("\n\tMatch nul...")
         return True
 
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Le programme commence ici
+#
 print("Petit jeu de morpion")
 print("--------------------")
 print("\n\n")
