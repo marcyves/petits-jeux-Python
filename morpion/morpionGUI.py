@@ -2,6 +2,10 @@
 # -*- coding: utf-8 -*-
 
 import sys
+import time
+import pygame
+from pygame.locals import *
+
 """
 Petit jeu de morpion
 -----------------------
@@ -16,48 +20,97 @@ Le premier qui aligne 3 pions a gagné !
 
 class morpion:
     def __init__(self):
-        self.table_jeu   = ["", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
-        self.pion_joueur = ""
-        self.pion_ordi   = ""
-
-        print("Petit jeu de morpion")
-        print("--------------------")
-        print("\n\n")
+        self.table_jeu     = ["", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+        self.pion_joueur   = ""
+        self.pion_ordi     = ""
+        self.a_qui_le_tour = ""
+        self.message_final = ""
 
     def choix_pion(self):
 
-        print("Choisissez votre pion pour décider qui commence (O)")
+        game_over = False
+        wait  = True
 
-        while (self.pion_joueur != "O" and self.pion_joueur != "X"):
-            self.pion_joueur = raw_input("Est-ce que vous jouez O ou X ? ==>  ").upper()
+        image = img_pion_cercle
+        self.pion_joueur = "O"
+        liste_messages = ["Bienvenue dans le jeu de morpion.", "Choisissez votre pion en utilisant les ", "flèches haut et bas pour le sélectionner.", "Flèche droite pour continuer", "Flèche gauche pour arrêter"]
+
+        while wait:
+            y = dessine_plateau("Petit jeu de Morpion", liste_messages)
+            fenetre.blit(image, (500,80))
+            pygame.display.update()
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    wait  = False
+                    game_over = True
+                elif event.type == pygame.KEYDOWN :
+                    if event.key == pygame.K_UP or event.key == pygame.K_DOWN :
+                        if self.pion_joueur == "O":
+                            self.pion_joueur = "X"
+                            image = img_pion_croix
+                        else:
+                            self.pion_joueur = "O"
+                            image = img_pion_cercle
+                    elif event.key == pygame.K_RIGHT:
+                        wait  = False
+                    elif event.key == pygame.K_LEFT:
+                        wait  = False
+                        game_over = True
+
 
         if self.pion_joueur == "O":
             self.pion_ordi = "X"
+            self.a_qui_le_tour = "joueur"
         else:
             self.pion_ordi = "O"
-            # L'ordinateur joue son premier coup
-            self.jeu_ordi()
+            self.a_qui_le_tour = "ordi"
+
+        return game_over
 
     def tour_de_jeu(self):
         jeu_en_cours = True
 
         while(jeu_en_cours):
-            self.affiche_jeu()
-            self.jeu_joueur()
-            if self.jeu_termine(self.pion_joueur):
-                jeu_en_cours = False
-            else:
-                self.affiche_jeu()
-                self.jeu_ordi()
-                if self.jeu_termine(self.pion_ordi):
+            pygame.time.Clock().tick(30)
+            self.affiche_jeu(["Ça joue !"])
+            for event in pygame.event.get():
+                if event.type == QUIT:
                     jeu_en_cours = False
+                if self.a_qui_le_tour == "ordi":
+                    self.jeu_ordi()
+                    self.a_qui_le_tour = "joueur"
+                else:
+                    if event.type == MOUSEBUTTONDOWN and event.button == 1 :
+                        clic_x = event.pos[0]
+                        clic_y = event.pos[1]
+                        coup_joueur = renvoie_pion(clic_x, clic_y)
 
-    def affiche_jeu(self):
-        print ("  " + self.table_jeu[1] + " | " + self.table_jeu[2] + " | " + self.table_jeu[3] + "")
-        print (" -----------")
-        print ("  " + self.table_jeu[4] + " | " + self.table_jeu[5] + " | " + self.table_jeu[6] + "")
-        print (" -----------")
-        print ("  " + self.table_jeu[7] + " | " + self.table_jeu[8] + " | " + self.table_jeu[9] + "")
+                        if coup_joueur > 0:
+                            self.table_jeu[coup_joueur] = self.pion_joueur
+                            self.a_qui_le_tour = "ordi"
+
+            if self.jeu_termine(self.pion_joueur) or self.jeu_termine(self.pion_ordi):
+                jeu_en_cours = False
+
+    def affiche_jeu(self, liste_messages):
+        y = dessine_plateau("Petit jeu de Morpion", liste_messages)
+
+        x0 = 100
+        y0 = max(120,y)
+        step = 150
+
+        fenetre.blit(renvoie_icone(self.table_jeu[1]), (x0,y0))
+        fenetre.blit(renvoie_icone(self.table_jeu[2]), (x0+step,y0))
+        fenetre.blit(renvoie_icone(self.table_jeu[3]), (x0+2*step,y0))
+        fenetre.blit(renvoie_icone(self.table_jeu[4]), (x0,y0+step))
+        fenetre.blit(renvoie_icone(self.table_jeu[5]), (x0+step,y0+step))
+        fenetre.blit(renvoie_icone(self.table_jeu[6]), (x0+2*step,y0+step))
+        fenetre.blit(renvoie_icone(self.table_jeu[7]), (x0,y0+2*step))
+        fenetre.blit(renvoie_icone(self.table_jeu[8]), (x0+step,y0+2*step))
+        fenetre.blit(renvoie_icone(self.table_jeu[9]), (x0+2*step,y0+2*step))
+
+        pygame.display.flip()
 
     def cherche_position_gagnante(self, pion):
         if (self.table_jeu[1] == pion and self.table_jeu[2] == pion and self.table_jeu[3] == "3" ):
@@ -114,7 +167,6 @@ class morpion:
         """
         Ici l'IA du jeu ordinateur
         """
-        print("\nÀ moi de jouer")
         # L'ordi cherche d'abord une position gagnante pour lui
         coup_ordi = self.cherche_position_gagnante(self.pion_ordi)
         if coup_ordi == 0:
@@ -131,20 +183,6 @@ class morpion:
                             coup_ordi = i
                             break
         self.table_jeu[coup_ordi] = self.pion_ordi
-        print("Je pose mon pion en " + str(coup_ordi))
-        return
-
-    def jeu_joueur(self):
-        """
-        gestion du coup du joueur, question et vérifications
-        """
-        coup_joueur = 0
-        while (coup_joueur <= 0 or coup_joueur >9):
-            coup_joueur = input("Où est-ce que vous placez votre pion ?  ")
-            if  self.table_jeu[coup_joueur] != str(coup_joueur):
-                print("Coup invalide, la case est prise")
-                coup_joueur = 0
-        self.table_jeu[coup_joueur] = self.pion_joueur
         return
 
     def jeu_termine(self, pion):
@@ -161,24 +199,129 @@ class morpion:
         or (self.table_jeu[1] == pion and self.table_jeu[5] == pion and self.table_jeu[9] == pion )
         or (self.table_jeu[7] == pion and self.table_jeu[5] == pion and self.table_jeu[3] == pion )):
             if pion == self.pion_joueur:
-                print("\n\tBravo, vous avez gagné !")
+                self.message_final = "Bravo, vous avez gagné !"
             else:
-                print("\n\tJ'ai gagné ! Bienvenue dans la matrice...")
+                self.message_final = "J'ai gagné ! Bienvenue dans la matrice..."
             return True
         else:
             for i in range(10):
                 if self.table_jeu[i] == str(i):
                     return False
-            print("\n\tMatch nul...")
+            self.message_final = "Match nul..."
             return True
+
+def rejoueOuQuitte():
+    pygame.event.clear()
+    wait  = True
+
+    liste_messages = []
+    liste_messages.append(partie.message_final)
+    liste_messages.append("Voulez-vous recommencer ?")
+    liste_messages.append("O/N ou Q pour quitter")
+
+    while wait:
+        partie.affiche_jeu(liste_messages)
+        pygame.display.update()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                wait   = False
+                rejoue = False
+            elif event.type == pygame.KEYUP or event.type == pygame.KEYDOWN :
+                if event.key == K_q :
+                    wait   = False
+                    rejoue = False
+                elif event.key == K_o :
+                    wait   = False
+                    rejoue = True
+                elif event.key == K_n:
+                    wait   = False
+                    rejoue = False
+    return rejoue
+
+def creaTexteObj(texte, Police):
+    textefenetre = Police.render(texte, True, white)
+    return textefenetre, textefenetre.get_rect()
+
+def dessine_plateau(titre, liste_messages):
+
+    # On dessine le tapis
+    fenetre.fill(couleur_tapis)
+    # On affiche le titre
+    police =  pygame.font.Font('BradBunR.ttf', 28)
+    texte = police.render(titre, True, white)
+    fenetre.blit(texte,[30,30])
+
+    # On affiche les messages
+    y = 80
+    police =  pygame.font.Font('BradBunR.ttf', 28)
+    for msg in liste_messages:
+        texte = police.render("%s" % (msg), True, white)
+        fenetre.blit(texte,[50,y])
+        y += 30
+
+#    pygame.display.update()
+    pygame.display.flip()
+    y += 30
+
+    return y
+
+def renvoie_pion(x, y):
+    x0 = 100
+    y0 = 120
+    step = 150
+
+    x -= x0
+    y -= y0
+
+    if x< 0 or x > 3*step:
+        return 0
+    if y <0 or y > 3*step:
+        return 0
+
+    tmp = x//step + 1 + (y//step) * 3
+
+    return tmp
+
+
+def renvoie_icone(pion):
+    if pion == "O":
+        tmp = img_pion_cercle
+    elif pion == "X":
+        tmp = img_pion_croix
+    else:
+        tmp = img_vide
+    return tmp
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Le programme commence ici
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-partie = morpion()
-partie.choix_pion()
+largeur = 800
+hauteur = 700
+white = (255,255,255)
+couleur_tapis = (0,128,0)
 
-partie.tour_de_jeu()
+pygame.init()
+fenetre = pygame.display.set_mode((largeur,hauteur))
+pygame.display.set_caption("Petit Jeu de Morpion")
 
-print("\nC'est terminé\n")
-partie.affiche_jeu()
+img_pion_cercle = pygame.image.load('cercle.png').convert_alpha()
+img_pion_croix  = pygame.image.load('croix.png').convert_alpha()
+img_vide        = pygame.image.load('vide.png').convert_alpha()
+img_plateau     = pygame.image.load('plateau.png').convert_alpha()
+
+horloge = pygame.time.Clock().tick(30)
+
+rejoue = True
+while rejoue :
+    partie = morpion()
+
+    if partie.choix_pion():
+        rejoue = False
+    else:
+        partie.tour_de_jeu()
+
+    rejoue = rejoueOuQuitte()
+
+pygame.quit()
+quit()

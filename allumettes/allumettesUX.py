@@ -18,7 +18,7 @@ prises par le précédent.
 
 """
 
-def load_image(name, colorkey=None):
+def load_image2(name, colorkey=None):
     fullname = os.path.join(name)
     try:
         image = pygame.image.load(fullname)
@@ -74,7 +74,7 @@ class allumette():
 
         ret = 1
         wait  = True
-        
+
         while wait:
             dessine_plateau(ret,"vous pouvez", "Flèches haut et bas pour modifier, droite pour continuer")
 #        ret = eval(input("Combien d'allumettes vous voulez retirer ? ==> "))
@@ -100,16 +100,16 @@ class allumette():
 
         L'IA du jeu (^_^);
         """
-        dessine_plateau(1,"je peux", "")        
+        dessine_plateau(1,"je peux", "")
         if self.allumettes == 1 :
             # Plus qu'une allumette, l'ordi a perdu
             # mais il est fair play et laisse un petit message
             nb = 1
-            dessine_plateau(1,"je peux", "Bien joué")        
+            dessine_plateau(1,"je peux", "Bien joué")
         elif self.limit >= (self.allumettes-1):
             # L'ordi a détecté un coup gagnant, il ne laisse qu'une allumette
             nb = self.allumettes-1
-            dessine_plateau(nb,"je peux", "Je crois que vous êtes mal parti...")        
+            dessine_plateau(nb,"je peux", "Je crois que vous êtes mal parti...")
         else :
             # L'ordi se crée une situation gagnante
             # Il prend un nombre d'allumettes
@@ -118,7 +118,7 @@ class allumette():
             laisse = 2 * (self.limit+1)
             nb = max(1,min(self.limit,self.allumettes - laisse))
 
-        dessine_plateau(nb,"je peux", "A mon tour, je retire %i " % nb)        
+        dessine_plateau(nb,"je peux", "A mon tour, je retire %i " % nb)
 
         wait  = True
         while wait:
@@ -128,10 +128,10 @@ class allumette():
                 elif event.type == pygame.KEYDOWN :
                     if event.key == pygame.K_RIGHT:
                         wait  = False
-        
+
         return nb
 
-def rejoueOuQuitte():    
+def rejoueOuQuitte():
     pygame.event.clear()
     for event in pygame.event.get([pygame.KEYDOWN, pygame.KEYUP, pygame.QUIT]) :
         if event.type == pygame.QUIT :
@@ -233,17 +233,17 @@ horloge = pygame.time.Clock()
 
 def main():
     global monJeu
-    
+
     monJeu = allumette(30)
 
     while (monJeu.fin()):
-        
+
         retire = monJeu.joueur()
         retour = monJeu.retire(retire)
 
         pygame.event.clear()
         event = pygame.event.wait()
-        
+
         if retour:
             retire = monJeu.ordi()
             retour = monJeu.retire(retire)
@@ -257,7 +257,7 @@ def main():
 rejoue = True
 while rejoue :
     main()
-    time.sleep(1)            
+    time.sleep(1)
     horloge.tick()
     rejoue = rejoueOuQuitte()
 
