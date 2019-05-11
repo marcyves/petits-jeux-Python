@@ -76,11 +76,9 @@ class magic:
         self.setTableau(1,0, t) 
 
 
+print("\tCarrés magiques")
 
 taille = choix_taille()
-
 mon_carre =  magic(taille)
-
 mon_carre.calcule_carre()
-
 print(mon_carre)
