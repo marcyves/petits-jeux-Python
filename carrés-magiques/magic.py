@@ -8,6 +8,12 @@ import sys
 
     Ce programme généère des carrés magiques de quatre tailles différentes 
     en utilisant la méthode dite "de La Loubère".
+
+    Méthode dite de la Loubère :
+    Placer 1 à droite de la ligne médiane, les autres nombres qui suivent sont écrits, si la case est libre,
+    en bas à droite de leur prédécesseur sinon directement à gauche de la case occupée.
+    En cas de dépassement de ligne ou de colonne, aller à l'autre extrémité.
+
     Un carré magique est un carré de nombres dans lequel les sommes des
     nombres de chaque rangée, de chaque colonne et des deux diagonales sont
     égales.
