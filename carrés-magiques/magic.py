@@ -9,17 +9,21 @@ import sys
     Ce programme généère des carrés magiques de quatre tailles différentes 
     en utilisant la méthode dite "de La Loubère".
 
-    Méthode dite de la Loubère :
-    Placer 1 à droite de la ligne médiane, les autres nombres qui suivent sont écrits, si la case est libre,
-    en bas à droite de leur prédécesseur sinon directement à gauche de la case occupée.
-    En cas de dépassement de ligne ou de colonne, aller à l'autre extrémité.
-
     Un carré magique est un carré de nombres dans lequel les sommes des
     nombres de chaque rangée, de chaque colonne et des deux diagonales sont
     égales.
 
     L'ordinateur demande la taille de 1 à 9.
     Seuls les nombres impairs sont acceptés.
+
+    Méthode dite de la Loubère :
+    ============================
+    Placer 1 à droite de la ligne médiane, les autres nombres qui suivent sont écrits :
+     si la case est libre, en bas à droite de leur prédécesseur
+     sinon directement à gauche de la case occupée.
+    
+    En cas de dépassement de ligne ou de colonne, aller à l'autre extrémité.
+
 """
 
 def choix_taille():
@@ -38,19 +42,21 @@ class magic:
 
     def __str__(self):
         tmp = ""
-        for ligne in range(self.taille):
-            for colonne in range(self.taille):
+        for ligne in range(1, self.taille+1):
+            for colonne in range(1, self.taille+1):
                 tmp += str(self.getTableau(ligne, colonne))
             tmp += "\n"
         return tmp
 
     def setTableau(self, ligne, colonne, valeur):
-        print( ligne, colonne, valeur, ligne*self.taille + colonne)
-        self.tableau[ligne*self.taille + colonne] = valeur
+        position = (ligne-1)*self.taille + colonne -1
+        print( " ({},{}) = {} - position {}".format(ligne, colonne, valeur, position))
+        self.tableau[position] = valeur
 
     def getTableau(self, ligne, colonne):
-        print("get ", ligne, colonne, " => ", ligne*(self.taille) + colonne)
-        return self.tableau[ligne*self.taille + colonne]
+        position = (ligne-1)*self.taille + colonne -1
+        print("get ({},{}) = {}".format(ligne, colonne, position))
+        return self.tableau[position]
 
     def calcule_carre(self):
         c1 = 0
@@ -77,14 +83,19 @@ class magic:
                 ligne += 1
 
         t=0
-        for i in range(self.taille):
+        for i in range(1, self.taille+1):
             t = t + self.getTableau(i, 1)
         self.setTableau(1,0, t) 
 
-
+print("="*30)
 print("\tCarrés magiques")
+print("="*30)
 
 taille = choix_taille()
 mon_carre =  magic(taille)
+
+print(mon_carre)
+
 mon_carre.calcule_carre()
+
 print(mon_carre)
