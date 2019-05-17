@@ -1,7 +1,11 @@
 # Petits jeux python
 
 L'idée est de développer quelques petits jeux simples en Python, bien sur pour jouer mais surtout pour apprendre à programmer.
-Vous pourrez en apprendre plus en vous référant à la page FaceBook des petits jeux Python : https://www.facebook.com/petitsjeuxPython/ 
+Vous pourrez en apprendre plus en vous référant : 
+ * à la page FaceBook des petits jeux Python : https://www.facebook.com/petitsjeuxPython/
+ * un cours gratuit qui suit pas à pas le jeu des allumettes https://www.udemy.com/creer-un-jeu-simple-avec-python/
+ * un cours en super promo pour apprendre Python avec Jupyter https://www.udemy.com/python-formation-intensive-a-la-programmation/?couponCode=MXAUDEMY
+ * un cours en promo pour apprendre Python avec un IDE traditionnel https://www.udemy.com/programmer-en-python/?couponCode=MXAUDEMY
 
 ## Les jeux présentés
 
@@ -13,10 +17,12 @@ Pour le premier tour, le joueur peut prendre entre 1 et 2 allumettes.
 Dans cette version, l'ordinateur (le programme Python) affronte un humain.
 
 ## Le morpion
-
 Une grille 3x3 et chaque joueur à tour de rôle va pose un pion,
 représenté par un O ou un X.
 Le premier qui aligne 3 pions a gagné !
+
+## Carrés magiques
+Des carrés où la somme des lignes, des colonnes et des diagonales donne toujours la même valeur
 
 # Quelques idées pour plus tard
 
