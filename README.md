@@ -24,6 +24,8 @@ Le premier qui aligne 3 pions a gagné !
 ## Carrés magiques
 Des carrés où la somme des lignes, des colonnes et des diagonales donne toujours la même valeur
 
+## Craps
+
 # Quelques idées pour plus tard
 
 ## Alunissage
