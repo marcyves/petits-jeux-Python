@@ -25,6 +25,11 @@ Le premier qui aligne 3 pions a gagné !
 Des carrés où la somme des lignes, des colonnes et des diagonales donne toujours la même valeur
 
 ## Craps
+Le Craps est un jeu de dés populaire en Amérique du Nord
+
+L'ordinateur lance les dés, si au premier lancé vous obtenez 7 ou 11, vous doublez votre mise. Si vous obtenez 2, 3 ou 12, vous perdez.
+Pour toute autre valeur, vous relancez les dés, jusqu'à obtenir la même valeur de nouveau, ce qui doublera votre mise.
+Mais si dans l'intervalle vous obtenez un 7, vous perdez.
 
 # Quelques idées pour plus tard
 
