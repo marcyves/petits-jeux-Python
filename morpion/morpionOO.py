@@ -29,7 +29,7 @@ class morpion:
         print("Choisissez votre pion pour décider qui commence (O)")
 
         while (self.pion_joueur != "O" and self.pion_joueur != "X"):
-            self.pion_joueur = raw_input("Est-ce que vous jouez O ou X ? ==>  ").upper()
+            self.pion_joueur = input("Est-ce que vous jouez O ou X ? ==>  ").upper()
 
         if self.pion_joueur == "O":
             self.pion_ordi = "X"
@@ -140,7 +140,7 @@ class morpion:
         """
         coup_joueur = 0
         while (coup_joueur <= 0 or coup_joueur >9):
-            coup_joueur = input("Où est-ce que vous placez votre pion ?  ")
+            coup_joueur = int(input("Où est-ce que vous placez votre pion ?  "))
             if  self.table_jeu[coup_joueur] != str(coup_joueur):
                 print("Coup invalide, la case est prise")
                 coup_joueur = 0
