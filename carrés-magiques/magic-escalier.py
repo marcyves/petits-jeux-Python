@@ -110,9 +110,15 @@ class carreMagique:
             return False
 
 def choix_taille():
-    t = 5
-    print("Calcul d'un carré de {}x{}".format(t,t))
-    return t
+
+    taille  = 0
+    print("Choisissez la taille du carré")
+    while (taille%2 == 0):
+        taille = int(input("Entrez un nombre impair ==>  "))
+
+    print("Calcul d'un carré de {}x{}".format(taille,taille))
+
+    return taille
 
 # Le programme commence ici
 if __name__ == "__main__":
