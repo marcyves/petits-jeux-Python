@@ -20,8 +20,8 @@ class morpion:
         self.pion_joueur = ""
         self.pion_ordi   = ""
 
-        print("Petit jeu de morpion")
-        print("--------------------")
+        print("\n\tPetit jeu de morpion")
+        print("\t--------------------")
         print("\n\n")
 
     def choix_pion(self):
@@ -175,10 +175,11 @@ class morpion:
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Le programme commence ici
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-partie = morpion()
-partie.choix_pion()
+if __name__ == "__main__":
+    partie = morpion()
+    partie.choix_pion()
 
-partie.tour_de_jeu()
+    partie.tour_de_jeu()
 
-print("\nC'est terminé\n")
-partie.affiche_jeu()
+    print("\nC'est terminé\n")
+    partie.affiche_jeu()
