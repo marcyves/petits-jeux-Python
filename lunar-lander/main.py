@@ -72,14 +72,13 @@ def main(difficulty):
 	int prevheight				/* The previous height to compare with actual. (for the colored digits) */
 	int step					/* Counts the steps passed since last output of the collumn names */
 	
-	
-	char version[]="1.1"		/* The Version of the program */
-	char dead[]="\nThere were no survivors.\n\n"
-	char crashed[]="\nThe Spaceship crashed. Good luck getting back home.\n\n"
-	char success[]="\nYou made it! Good job!\n\n"
-	char emptyfuel[]="\nThere is no fuel left. You're floating around like Wheatley.\n\n"
 	"""
 	gravity = 100
+
+	dead="\nThere were no survivors.\n"
+	crashed="\nThe Spaceship crashed. Good luck getting back home.\n"
+	success="\nYou made it! Good job!\n"
+	emptyfuel="\nThere is no fuel left. You're floating around like Wheatley.\n"
 	
    # Set initial height, time, fuel, burn, prevheight, step and speed according to difficulty.
 		
