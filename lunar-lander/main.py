@@ -142,13 +142,13 @@ def main(difficulty):
 			
 	if(height<=0):
 		if(speed>10):
-			print("%s", dead)
+			print(dead)
 		elif(speed<10 and speed>3):
-			print("%s", crashed)
+			print(crashed)
 		elif(speed<3):
-			print("%s", success)
+			print(success)
 	elif(height>0):
-		print("%s", emptyfuel)
+		print(emptyfuel)
 	
 
 if __name__ == "__main__":
