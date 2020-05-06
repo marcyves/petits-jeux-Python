@@ -4,9 +4,9 @@
 class Module():
 
     def __init__(self):
-        self.altitude   = 10000
+        self.altitude   =  5000
         self.vitesse    =  1000
-        self.carburant  = 12000
+        self.carburant  =  4000
         self.poussée    =     0
         self.pousséeMax =   500
 
@@ -39,6 +39,9 @@ class Module():
 
     def bruleCarburant(self, carburant):
         self.carburant -= carburant
+        if self.carburant < 0:
+            self.carburant = 0
+            print("ATTENTION: Vous êtes à court de carburant !")
 
     def setPoussée(self, poussée):
         self.poussée = poussée
@@ -49,8 +52,9 @@ class Module():
 class Alunissage():
 
     def __init__(self):
-        self.étape    = 1
-        self.heure    = 0
+        self.étape       =   1
+        self.heure       =   0
+        self.gravitation = 100
         self.vaisseau = Module()
         print("L'altitude du vaisseau en orbite est {}".format(self.vaisseau.getAltitude()))
 
@@ -76,8 +80,21 @@ class Alunissage():
         self.vaisseau.setPoussée(poussée)
 
     def simulation(self):
-        self.étape += 1 
-        self.vaisseau.setAltitude(self.vaisseau.getAltitude()-1000)
+        self.étape += 1
+        
+        vitesse = self.vaisseau.getVitesse() + self.gravitation - self.vaisseau.getPoussée()
+        altitude0 = self.vaisseau.getAltitude()
+        altitude1 = altitude0 - vitesse
+
+        self.vaisseau.setAltitude(altitude1)
+        self.vaisseau.setVitesse(vitesse)
+
+        if altitude1>altitude0:
+            print("\n\tLe vaisseau monte")
+        elif altitude1 == altitude0:
+            print("\n\tVous êtes en orbite stationnaire")
+        else:
+            print("\n\tLe vaisseau descend")
 
     def resultat(self):
         v = self.vaisseau.getVitesse()
