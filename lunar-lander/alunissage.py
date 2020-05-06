@@ -45,7 +45,10 @@ class Alunissage():
         print("L'altitude du vaisseau en orbite est {}".format(self.vaisseau.getAltitude()))
 
     def enVol(self):
-        pass
+        if self.vaisseau.getAltitude()>0:
+            return True
+        else:
+            return False
 
     def affichage(self):
         pass
