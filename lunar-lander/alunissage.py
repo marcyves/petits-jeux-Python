@@ -51,13 +51,19 @@ class Alunissage():
             return False
 
     def affichage(self):
-        pass
+        print("\n\t+------------------------------------+")
+        print("\t| - - - - - - - - {} - - - - - - - - |".format(self.étape))
+        print("\t| Altitude {} m   Carburant {} ".format(self.vaisseau.getAltitude(), self.vaisseau.getCarburant()))
+        print("\t| Vitesse {} m/s".format(self.vaisseau.getVitesse()))
+        print("\t| Poussée {} ".format(self.vaisseau.getPoussée()))
+        print("\t+------------------------------------+")
 
     def pilotage(self):
         pass
 
     def simulation(self):
-        pass
+        self.étape += 1 
+        self.vaisseau.setAltitude(self.vaisseau.getAltitude()-1000)
         
 if __name__ == "__main__":
     print("Alunissage")
