@@ -4,10 +4,11 @@
 class Module():
 
     def __init__(self):
-        self.altitude  = 10000
-        self.vitesse   =  1000
-        self.carburant = 12000
-        self.poussée   =     0
+        self.altitude   = 10000
+        self.vitesse    =  1000
+        self.carburant  = 12000
+        self.poussée    =     0
+        self.pousséeMax =   500
 
     def getAltitude(self):
         return self.altitude
@@ -21,6 +22,9 @@ class Module():
     def getPoussée(self):
         return self.poussée
 
+    def getPousséeMax(self):
+        return self.pousséeMax
+
     def setAltitude(self, altitude):
         self.altitude = altitude
 
@@ -33,8 +37,14 @@ class Module():
     def setCarburant(self, carburant):
         self.carburant = carburant
 
+    def bruleCarburant(self, carburant):
+        self.carburant -= carburant
+
     def setPoussée(self, poussée):
         self.poussée = poussée
+    
+    def setPousséeMax(self, poussée):
+        self.pousséeMax = poussée
 
 class Alunissage():
 
@@ -59,7 +69,11 @@ class Alunissage():
         print("\t+------------------------------------+")
 
     def pilotage(self):
-        pass
+        poussée = -1
+        while(poussée<0 or poussée>self.vaisseau.getPousséeMax()):
+            poussée = int(input("Combien bruler de carburant ==> "))
+        self.vaisseau.bruleCarburant(poussée)
+        self.vaisseau.setPoussée(poussée)
 
     def simulation(self):
         self.étape += 1 
