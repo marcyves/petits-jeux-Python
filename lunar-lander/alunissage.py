@@ -78,7 +78,18 @@ class Alunissage():
     def simulation(self):
         self.étape += 1 
         self.vaisseau.setAltitude(self.vaisseau.getAltitude()-1000)
-        
+
+    def resultat(self):
+        v = self.vaisseau.getVitesse()
+
+        if v > 100:
+            print("\nLe vaisseau s'est fracassé, il n'y a pas de survivant.")
+        elif v > 30:
+            print("\nLe vaisseau s'est posé brutalement, pas sûr que vous puissiez redécoller.")
+        else:
+            print("\nBravo, alunissage parffaitement réussi !") 
+        print("\nGame over")
+                    
 if __name__ == "__main__":
     print("Alunissage")
     print("----------\n")
@@ -89,4 +100,6 @@ if __name__ == "__main__":
         jeu.affichage()
         jeu.pilotage()
         jeu.simulation()
+
+    jeu.resultat()
 
