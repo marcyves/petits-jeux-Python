@@ -75,7 +75,11 @@ class Alunissage():
     def pilotage(self):
         poussée = -1
         while(poussée<0 or poussée>self.vaisseau.getPousséeMax()):
-            poussée = int(input("Combien bruler de carburant ==> "))
+            try:
+                poussée = int(input("Combien bruler de carburant ==> "))
+            except ValueError:
+               poussée = 0
+
         self.vaisseau.bruleCarburant(poussée)
         self.vaisseau.setPoussée(poussée)
 
@@ -118,5 +122,6 @@ if __name__ == "__main__":
         jeu.pilotage()
         jeu.simulation()
 
+    jeu.affichage()
     jeu.resultat()
 
