@@ -36,11 +36,34 @@ class Module():
     def setPoussée(self, poussée):
         self.poussée = poussée
 
+class Alunissage():
+
+    def __init__(self):
+        self.étape    = 1
+        self.heure    = 0
+        self.vaisseau = Module()
+        print("L'altitude du vaisseau en orbite est {}".format(self.vaisseau.getAltitude()))
+
+    def enVol(self):
+        pass
+
+    def affichage(self):
+        pass
+
+    def pilotage(self):
+        pass
+
+    def simulation(self):
+        pass
         
 if __name__ == "__main__":
     print("Alunissage")
     print("----------\n")
 
-    vaisseau = Module()
-    print("L'altitude du vaisseau est {}".format(vaisseau.getAltitude()))
+    jeu = Alunissage()
+
+    while jeu.enVol():
+        jeu.affichage()
+        jeu.pilotage()
+        jeu.simulation()
 
