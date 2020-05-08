@@ -56,17 +56,47 @@ class Module():
 
 class Alunissage():
 
-    def __init__(self, niveau):
+    def __init__(self):
         self.étape       =   1
         self.heure       =   0
         self.gravitation = 100
 
-        if niveau == 1:
-            self.vaisseau = Module(5000, 1000, 6000, 200, 500)
-        elif niveau == 2:
-            self.vaisseau = Module(2000, 1000, 3000, 200, 400)
-        else:
-            self.vaisseau = Module(5000, 1000, 4000, 200, 300)
+        self.niveaux = {'Facile':[
+            1,          # numéro du niveau
+            5000,       # Altitude de départ
+            1000,       # Vitesse initiale
+            6000,       # Carburant
+            200,        # Poussée initiale
+            500         # Poussée Max
+        ],
+        'Basse altitude':[2, 2000, 800, 3000, 200 , 400],
+        'Peu de carburant':[3, 3000, 600, 3000, 0, 500],
+        'Haute altitude':[4, 10000, 1000, 6000, 500, 500]
+        }
+
+    def choixNiveau(self):
+
+        print("\nLes niveaux disponibles\n")
+
+        for niveau in self.niveaux:
+            print("\t{} - {}".format(self.niveaux[niveau][0], niveau))
+
+        n = 0
+        while (n<1 or n>len(self.niveaux)):
+            try:
+                n = int(input("\nQuel niveau vous voulez [1]/{} => ".format(len(self.niveaux))))
+            except:
+                n = 1
+
+        for niveau in self.niveaux:
+            if self.niveaux[niveau][0] == n:
+                altitude   = self.niveaux[niveau][1]
+                vitesse    = self.niveaux[niveau][2]
+                carburant  = self.niveaux[niveau][3]
+                poussée    = self.niveaux[niveau][4]
+                pousséeMax = self.niveaux[niveau][5]
+                self.vaisseau = Module(altitude, vitesse, carburant, poussée, pousséeMax)
+                break
 
         print("\nL'altitude du vaisseau en orbite est {}".format(self.vaisseau.getAltitude()))
 
@@ -134,14 +164,9 @@ if __name__ == "__main__":
     print("Alunissage")
     print("----------\n")
 
-    n = 0
-    while (n<1 or n>3):
-        try:
-            n = int(input("Quel niveau vous voulez [1]/3 => "))
-        except:
-            n = 1
+    jeu = Alunissage()
 
-    jeu = Alunissage(n)
+    jeu.choixNiveau()
 
     message = "C'est parti !"
     while jeu.enVol():
