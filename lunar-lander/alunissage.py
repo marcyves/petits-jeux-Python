@@ -108,7 +108,7 @@ class Alunissage():
         elif v > 30:
             print("\nLe vaisseau s'est posé brutalement, pas sûr que vous puissiez redécoller.")
         else:
-            print("\nBravo, alunissage parffaitement réussi !") 
+            print("\nBravo, alunissage parfaitement réussi !") 
         print("\nGame over")
                     
 if __name__ == "__main__":
