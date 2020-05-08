@@ -31,9 +31,14 @@ L'ordinateur lance les dés, si au premier lancé vous obtenez 7 ou 11, vous dou
 Pour toute autre valeur, vous relancez les dés, jusqu'à obtenir la même valeur de nouveau, ce qui doublera votre mise.
 Mais si dans l'intervalle vous obtenez un 7, vous perdez.
 
-# Quelques idées pour plus tard
-
 ## Alunissage
+Aux manettes de votre module lunaire, vous devez le faire atterrir en douceur en utilisant le carburant de manière optimale.
+
+Le principe est très simple, mais la mise en oeuvre va nous emmener très loin.
+
+ce jeu est le gros morceau de cet ensemble
+
+# Quelques idées pour plus tard
 
 ## Labyrinthe 2D
 
