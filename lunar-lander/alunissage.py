@@ -56,12 +56,19 @@ class Module():
 
 class Alunissage():
 
-    def __init__(self):
+    def __init__(self, niveau):
         self.étape       =   1
         self.heure       =   0
         self.gravitation = 100
-        self.vaisseau = Module(5000, 1000, 6000, 200, 500)
-        print("L'altitude du vaisseau en orbite est {}".format(self.vaisseau.getAltitude()))
+
+        if niveau == 1:
+            self.vaisseau = Module(5000, 1000, 6000, 200, 500)
+        elif niveau == 2:
+            self.vaisseau = Module(2000, 1000, 3000, 200, 400)
+        else:
+            self.vaisseau = Module(5000, 1000, 4000, 200, 300)
+
+        print("\nL'altitude du vaisseau en orbite est {}".format(self.vaisseau.getAltitude()))
 
     def enVol(self):
         if self.vaisseau.getAltitude()>0:
@@ -127,7 +134,14 @@ if __name__ == "__main__":
     print("Alunissage")
     print("----------\n")
 
-    jeu = Alunissage()
+    n = 0
+    while (n<1 or n>3):
+        try:
+            n = int(input("Quel niveau vous voulez [1]/3 => "))
+        except:
+            n = 1
+
+    jeu = Alunissage(n)
 
     message = "C'est parti !"
     while jeu.enVol():
