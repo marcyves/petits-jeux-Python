@@ -6,7 +6,7 @@ class Module():
     def __init__(self):
         self.altitude   =  5000
         self.vitesse    =  1000
-        self.carburant  =  4000
+        self.carburant  =  1000
         self.poussée    =     0
         self.pousséeMax =   500
 
@@ -43,7 +43,6 @@ class Module():
         self.carburant -= carburant
         if self.carburant < 0:
             self.carburant = 0
-            print("ATTENTION: Vous êtes à court de carburant !")
 
     def setPoussée(self, poussée):
         self.poussée = poussée
@@ -66,9 +65,14 @@ class Alunissage():
         else:
             return False
 
-    def affichage(self):
+    def affichage(self, message):
         print("\n\t+------------------------------------+")
         print("\t| - - - - - - - - {:>2} - - - - - - - - |".format(self.étape))
+        print("\t+------------------------------------+")
+        if self.vaisseau.getCarburant() <= 0:
+            print("\t| {:^34} |".format("Vous êtes à court de carburant !"))
+            print("\t+------------------------------------+")
+        print("\t| {:^34} |".format(message))
         print("\t+------------------------------------+")
         print("\t| Altitude {:>5} m   Carburant {:>5} |".format(self.vaisseau.getAltitude(), self.vaisseau.getCarburant()))
         print("\t| Vitesse  {:>5} m/s Poussée   {:>5} |".format(self.vaisseau.getVitesse(), self.vaisseau.getPoussée()))
@@ -78,7 +82,7 @@ class Alunissage():
         poussée = -1
         while(poussée<0 or poussée>self.vaisseau.getPousséeMax()):
             try:
-                poussée = int(input("Combien bruler de carburant ==> "))
+                poussée = int(input("\nCombien bruler de carburant (max={:<3}) ==> ".format(self.vaisseau.getPousséeMax())))
             except ValueError:
                poussée = 0
 
@@ -96,11 +100,13 @@ class Alunissage():
         self.vaisseau.setVitesse(vitesse)
 
         if altitude1>altitude0:
-            print("\n\tLe vaisseau monte")
+            msg = "Le vaisseau monte"
         elif altitude1 == altitude0:
-            print("\n\tVous êtes en orbite stationnaire")
+            msg = "Vous êtes en orbite stationnaire"
         else:
-            print("\n\tLe vaisseau descend")
+            msg = "Le vaisseau descend"
+
+        return msg
 
     def resultat(self):
         v = self.vaisseau.getVitesse()
@@ -119,10 +125,11 @@ if __name__ == "__main__":
 
     jeu = Alunissage()
 
+    message = "C'est parti !"
     while jeu.enVol():
-        jeu.affichage()
+        jeu.affichage(message)
         jeu.pilotage()
-        jeu.simulation()
+        message = jeu.simulation()
 
     jeu.affichage()
     jeu.resultat()
