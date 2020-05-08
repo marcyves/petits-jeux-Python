@@ -26,6 +26,8 @@ class Module():
         return self.pousséeMax
 
     def setAltitude(self, altitude):
+        if altitude < 0:
+            altitude = 0
         self.altitude = altitude
 
     def monte(self, q):
