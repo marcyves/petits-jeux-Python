@@ -3,12 +3,12 @@
 
 class Module():
 
-    def __init__(self):
-        self.altitude   =  5000
-        self.vitesse    =  1000
-        self.carburant  =  1000
-        self.poussée    =     0
-        self.pousséeMax =   500
+    def __init__(self, altitude, vitesse, carburant, poussée, pousséeMax):
+        self.altitude   =  altitude
+        self.vitesse    =  vitesse
+        self.carburant  =  carburant
+        self.poussée    =  poussée
+        self.pousséeMax =  pousséeMax
 
     def getAltitude(self):
         return self.altitude
@@ -60,7 +60,7 @@ class Alunissage():
         self.étape       =   1
         self.heure       =   0
         self.gravitation = 100
-        self.vaisseau = Module()
+        self.vaisseau = Module(5000, 1000, 6000, 200, 500)
         print("L'altitude du vaisseau en orbite est {}".format(self.vaisseau.getAltitude()))
 
     def enVol(self):
@@ -135,6 +135,6 @@ if __name__ == "__main__":
         jeu.pilotage()
         message = jeu.simulation()
 
-    jeu.affichage()
+    jeu.affichage("Game Over")
     jeu.resultat()
 
