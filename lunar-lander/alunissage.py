@@ -66,10 +66,10 @@ class Alunissage():
 
     def affichage(self):
         print("\n\t+------------------------------------+")
-        print("\t| - - - - - - - - {} - - - - - - - - |".format(self.étape))
-        print("\t| Altitude {} m   Carburant {} ".format(self.vaisseau.getAltitude(), self.vaisseau.getCarburant()))
-        print("\t| Vitesse {} m/s".format(self.vaisseau.getVitesse()))
-        print("\t| Poussée {} ".format(self.vaisseau.getPoussée()))
+        print("\t| - - - - - - - - {:>2} - - - - - - - - |".format(self.étape))
+        print("\t+------------------------------------+")
+        print("\t| Altitude {:>5} m   Carburant {:>5} |".format(self.vaisseau.getAltitude(), self.vaisseau.getCarburant()))
+        print("\t| Vitesse  {:>5} m/s Poussée   {:>5} |".format(self.vaisseau.getVitesse(), self.vaisseau.getPoussée()))
         print("\t+------------------------------------+")
 
     def pilotage(self):
