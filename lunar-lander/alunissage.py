@@ -40,9 +40,13 @@ class Module():
         self.carburant = carburant
 
     def bruleCarburant(self, carburant):
+        if carburant > self.carburant:
+            carburant = self.carburant
         self.carburant -= carburant
-        if self.carburant < 0:
-            self.carburant = 0
+ 
+        poussée = (self.poussée//2 + carburant)//2
+
+        return poussée
 
     def setPoussée(self, poussée):
         self.poussée = poussée
@@ -79,14 +83,14 @@ class Alunissage():
         print("\t+------------------------------------+")
 
     def pilotage(self):
-        poussée = -1
-        while(poussée<0 or poussée>self.vaisseau.getPousséeMax()):
+        carburant = -1
+        while(carburant<0 or carburant>self.vaisseau.getPousséeMax()):
             try:
-                poussée = int(input("\nCombien bruler de carburant (max={:<3}) ==> ".format(self.vaisseau.getPousséeMax())))
+                carburant = int(input("\nCombien bruler de carburant (max={:<3}) ==> ".format(self.vaisseau.getPousséeMax())))
             except ValueError:
-               poussée = 0
+               carburant = 0
 
-        self.vaisseau.bruleCarburant(poussée)
+        poussée = self.vaisseau.bruleCarburant(carburant)
         self.vaisseau.setPoussée(poussée)
 
     def simulation(self):
