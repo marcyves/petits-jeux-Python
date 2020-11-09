@@ -18,9 +18,9 @@ from random import randint
 class craps:
         def __init__(self, p):
 
-            print("===============")
-            print("=  C R A P S  =")
-            print("===============")
+            print("\n+-------------+")
+            print("|  C R A P S  |")
+            print("+-------------+")
 
             self.portefeuille = p
             self.mise = 0
@@ -40,12 +40,12 @@ class craps:
             return self.joue
         
         def jeuGagne(self):
-            print("Vous avez gagné {} ".format(2*self.mise))
+            print("\n => Vous avez gagné {} ".format(2*self.mise))
             self.portefeuille += 2*self.mise
-            self.fin()      
+            rep = input("\nOn relance les dès (entrée pour continuer)")
 
         def jeuPerdu(self):
-            print("Vous avez perdu !")      
+            print("\n => Vous avez perdu !")      
             self.fin()
 
         def debut(self):
@@ -64,19 +64,22 @@ class craps:
 
         def enCours(self):
             if self.portefeuille > 0:
-                return True
+                return self.joue
             else:
                 return False
 
         def miser(self):
             mise = 0
-            while(mise<=0 or mise > self.portefeuille):
-                mise=input("\nVous avez {} en poche. Combien vous voulez miser ? ==> ".format(self.portefeuille))
+            while(mise<=0 or mise > self.portefeuille) and self.getJoue():
+                rep=input("\nVous avez {} en poche. Combien vous voulez miser ? (stop pour arrêter) ==> ".format(self.portefeuille))
                 try:
-                    mise = int(mise)
+                    mise = int(rep)
                 except ValueError:
-                    print("\t\tMerci d'entrer une valeur numérique")
-                    mise = 0
+                    if rep == "stop":
+                        self.fin()
+                    else:
+                        print("\t\tMerci d'entrer une valeur numérique")
+                        mise = 0
             self.mise = mise
             self.portefeuille -= mise
 
