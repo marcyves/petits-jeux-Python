@@ -11,6 +11,20 @@ Jeu de craps
 from random import randint
 
 class craps:
+    def __init__(self, p):
+
+        print("\n+-------------+")
+        print("|  C R A P S  |")
+        print("+-------------+")
+
+        self.portefeuille = p
+        self.mise = 0
+        self.tour = 1
+        self.cible = 0
+        self.joue = True
+
+    def affiche_regles(self):
+        print("""Le Craps est un jeu de dés populaire en Amérique du Nord""")
 
     def __init__(self, p):
         self.portefeuille = p
@@ -36,34 +50,64 @@ class craps:
     def miser(self):
         mise = 0
         
-        print("Vous avez {} en portefeuille.".format(self.portefeuille))
-        if self.tour >1:
-            print("\tVous devez réaliser {} pour gagner".format(self.cible))
+        def jeuGagne(self):
+            print("\n => Vous avez gagné {} ".format(2*self.mise))
+            self.portefeuille += 2*self.mise
+            rep = input("\nOn relance les dès (entrée pour continuer)")
+
+        def jeuPerdu(self):
+            print("\n => Vous avez perdu !")      
+            self.fin()
+
+        def debut(self):
+            self.tour = 1
+            self.cible = 0
+            self.joue = True
+
+        def fin(self):
+            self.joue = False
+
+        def getCible(self):
+            return self.cible
         
-        while(mise<=0 or mise > self.portefeuille):
-            try:
-                mise = int(input("Combien vous voulez miser ? => "))
-            except ValueError:
-                print("\n\t\tMerci de rentrer une valeur numérique\n")
-                mise = 0
-        self.mise = mise
-        self.portefeuille -= mise
+        def setCible(self, c):
+            self.cible = c
 
-    def lancer(self):
-        self.dé1 = randint(1,6)
-        self.dé2 = randint(1,6)
+        def enCours(self):
+            if self.portefeuille > 0:
+                return self.joue
+            else:
+                return False
 
-    def analyse(self):
-        valeur = self.dé1+self.dé2
-        print("Vous avez tiré {} et {}, ce qui fait {}".format(self.dé1, self.dé2, valeur))
-        if self.tour == 1:
-            if valeur == 7 or valeur == 11:
-                self.gagne()
-            elif valeur == 2 or valeur == 3 or valeur == 12:
-                self.perdu()
-            elif self.portefeuille == 0:
-                print("\nVous êtes ruiné")
-                self.perdu()
+        def miser(self):
+            mise = 0
+            while(mise<=0 or mise > self.portefeuille) and self.getJoue():
+                rep=input("\nVous avez {} en poche. Combien vous voulez miser ? (stop pour arrêter) ==> ".format(self.portefeuille))
+                try:
+                    mise = int(rep)
+                except ValueError:
+                    if rep == "stop":
+                        self.fin()
+                    else:
+                        print("\t\tMerci d'entrer une valeur numérique")
+                        mise = 0
+            self.mise = mise
+            self.portefeuille -= mise
+
+        def lancer(self):
+            return randint(1,6)
+
+        def analyse(self, v1, v2):
+            valeur = v1 + v2
+            print("\n---> Vous avez tiré : {} et {}, ce qui fait {}".format(v1, v2, valeur))
+            if self.tour == 1:
+                if valeur==7 or valeur==11:
+                    self.jeuGagne()
+                elif valeur==2 or valeur==3 or valeur==12:
+                    self.jeuPerdu()
+                else:
+                    self.tour += 1
+                    self.setCible(valeur)
             else:
                 self.tour += 1
                 self.cible = valeur
