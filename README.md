@@ -40,7 +40,7 @@ ce jeu est le gros morceau de cet ensemble
 
 # Quelques idées pour plus tard
 
-## Awele
+## Awelle
 
 ## Labyrinthe 2D
 
