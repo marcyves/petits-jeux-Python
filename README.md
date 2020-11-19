@@ -1,4 +1,4 @@
-# Petits jeux python
+# Des jeux simples en Python
 
 L'idée est de développer quelques petits jeux simples en Python, bien sur pour jouer mais surtout pour apprendre à programmer.
 Vous pourrez en apprendre plus en vous référant : 
