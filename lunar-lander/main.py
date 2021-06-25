@@ -31,6 +31,17 @@ import random
 import argparse
 
 def calculate(height, speed, burn, gravity):
+	""" Calculate the impact of burn on speed and gravity
+
+	Arguments:
+		height {int} -- [description]
+		speed {int} -- [description]
+		burn {int} -- [description]
+		gravity {int} -- [description]
+
+	Returns:
+		int -- [description]
+	"""
 	return (speed+gravity-burn)
 
 def info():
@@ -39,6 +50,7 @@ def info():
 	print("\n\nContact me at http://www.xdm-consulting.fr\n")
 
 def windowcleaner(step):
+
 	if step >= 24 :
 		print("\nTime\t")
 		print("Speed\t\t")
