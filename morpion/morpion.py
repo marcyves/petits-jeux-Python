@@ -1,6 +1,8 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 
+# version Python 2.x
+
 import sys
 """
 Petit jeu de morpion
