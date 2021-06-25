@@ -97,8 +97,8 @@ jeu = craps(200)
 nouveau_tour = True
 
 while nouveau_tour:
+    jeu.miser()
     while jeu.en_cours():
-        jeu.miser()
         jeu.lancer()
         jeu.analyse()
     
