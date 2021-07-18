@@ -53,17 +53,18 @@ class morpion:
                     y = event.pos[1]
                     print("clic {} {}".format(x,y ))
                     game_over = False
-                    wait = False
 
-        if y > 200 and y < 320:
-            if x > 90 and x < 200:
-                self.pion_joueur = "O"
-                self.pion_ordi = "X"
-                self.a_qui_le_tour = "joueur"
-            elif x > 300 and x < 430:
-                self.pion_joueur = "X"
-                self.pion_ordi = "O"
-                self.a_qui_le_tour = "ordi"
+                    if y > 200 and y < 320:
+                        if x > 90 and x < 200:
+                            self.pion_joueur = "O"
+                            self.pion_ordi = "X"
+                            self.a_qui_le_tour = "joueur"
+                            wait = False
+                        elif x > 300 and x < 430:
+                            self.pion_joueur = "X"
+                            self.pion_ordi = "O"
+                            self.a_qui_le_tour = "ordi"
+                            wait = False
 
         return game_over
 
