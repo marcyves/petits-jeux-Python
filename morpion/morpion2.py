@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 
-# version Python 3.x
+# version Python 2.x
 
 import sys
 """
@@ -28,7 +28,7 @@ def jeu_joueur():
     """
     coup_joueur = 0
     while (coup_joueur <= 0 or coup_joueur >9):
-        coup_joueur = int(input("Où est-ce que vous placez votre pion ?  "))
+        coup_joueur = input("Où est-ce que vous placez votre pion ?  ")
         if  table_jeu[coup_joueur] != str(coup_joueur):
             print("Coup invalide, la case est prise")
             coup_joueur = 0
@@ -149,7 +149,7 @@ print("Choisissez votre pion pour décider qui commence (O)")
 
 pion_joueur = ""
 while (pion_joueur != "O" and pion_joueur != "X"):
-    pion_joueur = input("Est-ce que vous jouez O ou X ? ==>  ").upper()
+    pion_joueur = raw_input("Est-ce que vous jouez O ou X ? ==>  ").upper()
 
 if pion_joueur == "O":
     pion_ordi = "X"
