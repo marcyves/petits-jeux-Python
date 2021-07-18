@@ -33,42 +33,37 @@ class morpion:
         game_over = False
         wait  = True
 
-        image = img_pion_cercle
-        self.pion_joueur = "O"
-        liste_messages = ["Bienvenue dans le jeu de morpion.", "Choisissez votre pion en utilisant les ", "flèches haut et bas pour le sélectionner.", "Flèche droite pour continuer", "Flèche gauche pour arrêter"]
+        liste_messages = ["Bienvenue dans le jeu de morpion.", "Merci de sélectionner le pion que vous désirez utiliser"]
         y = dessine_plateau("Petit jeu de Morpion", liste_messages)
-        fenetre.blit(image, (500,80))
+        fenetre.blit(img_pion_cercle, (80,200))
+        fenetre.blit(img_pion_croix, (300,200))
+
         pygame.display.update()
 
         while wait:
 
             for event in pygame.event.get():
+                x = 0
+                y = 0
                 if event.type == pygame.QUIT:
                     wait  = False
                     game_over = True
-                elif event.type == pygame.KEYDOWN :
-                    if event.key == pygame.K_UP or event.key == pygame.K_DOWN :
-                        if self.pion_joueur == "O":
-                            self.pion_joueur = "X"
-                            image = img_pion_croix
-                        else:
-                            self.pion_joueur = "O"
-                            image = img_pion_cercle
-                        fenetre.blit(image, (500,80))
-                        pygame.display.update()
-                    elif event.key == pygame.K_RIGHT:
-                        wait  = False
-                    elif event.key == pygame.K_LEFT:
-                        wait  = False
-                        game_over = True
+                elif event.type == MOUSEBUTTONDOWN and event.button == 1 :
+                    x = event.pos[0]
+                    y = event.pos[1]
+                    print("clic {} {}".format(x,y ))
+                    game_over = False
+                    wait = False
 
-
-        if self.pion_joueur == "O":
-            self.pion_ordi = "X"
-            self.a_qui_le_tour = "joueur"
-        else:
-            self.pion_ordi = "O"
-            self.a_qui_le_tour = "ordi"
+        if y > 200 and y < 320:
+            if x > 90 and x < 200:
+                self.pion_joueur = "O"
+                self.pion_ordi = "X"
+                self.a_qui_le_tour = "joueur"
+            elif x > 300 and x < 430:
+                self.pion_joueur = "X"
+                self.pion_ordi = "O"
+                self.a_qui_le_tour = "ordi"
 
         return game_over
 
