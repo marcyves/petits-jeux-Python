@@ -46,8 +46,24 @@ class Morpion:
         self.tableau[coup_joueur] = self.pion_joueur
 
     def jeu_ordi(self):
-        pass
+        print("À moi de jouer")
+        coup_ordi = self.cherche_position_gagnante()
 
+        if coup_ordi == 0:
+            if self.tableau[5] == "5":
+                coup_ordi = 5
+            else:
+                coup_ordi = self.cherche_solution()
+
+        print("Je joue en position {}".format(coup_ordi))
+        self.tableau[coup_ordi] = self.pion_ordi
+
+    def cherche_position_gagnante(self):
+        return 0
+
+    def cherche_solution(self):
+        return 0
+        
     def joueur(self):
         if self.qui_joue == "ordi":
             return False
@@ -77,6 +93,12 @@ class Morpion:
                 print("J'ai gagné !")
             self.actif = False
 
+    def a_toi(self):
+            if self.joueur():
+                self.qui_joue = "ordi"
+            else:
+                self.qui_joue = "joueur"
+
 if __name__ == "__main__":
 
     partie = Morpion()
@@ -84,14 +106,16 @@ if __name__ == "__main__":
     partie.choix_pion()
 
     while partie.en_cours():
-        if partie.joueur :
+        if partie.joueur() :
             partie.affiche_jeu()
             partie.jeu_joueur()
             partie.terminée()
+            partie.a_toi()
         else:
             partie.jeu_ordi()
             partie.terminée()
-        
+            partie.a_toi()
+
         partie.affiche_jeu()
 
     print("Au revoir")
